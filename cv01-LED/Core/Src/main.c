@@ -31,7 +31,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define DELAY_LED 200
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -95,11 +95,20 @@ int main(void) {
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
+	uint32_t pole = 0b101010011101110111;
+
 	while (1) {
-		LL_GPIO_SetOutputPin(LD2_GPIO_Port, LD2_Pin);
-		LL_mDelay(100);
-		LL_GPIO_ResetOutputPin(LD2_GPIO_Port, LD2_Pin);
-		LL_mDelay(100);
+
+		for (int i = 0; i < 32; i++) {
+			if ((pole>>i)%2) {
+				LL_GPIO_SetOutputPin(LD2_GPIO_Port, LD2_Pin);
+			} else {
+				LL_GPIO_ResetOutputPin(LD2_GPIO_Port, LD2_Pin);
+			}
+
+			LL_mDelay(DELAY_LED);
+		}
+
 		/* USER CODE END WHILE */
 		/* USER CODE BEGIN 3 */
 	}
